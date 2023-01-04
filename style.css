@@ -80,7 +80,7 @@ body {
 }
 
 .transactions {
-  flex-basis: 50%;
+  flex-basis: 60%;
 }
 
 .transaction__amount {
@@ -124,8 +124,10 @@ body {
 
 .list {
   list-style: none;
-  max-height: 48rem;
+  max-height: 54rem;
   overflow-y: scroll;
+  padding-top: 0;
+  padding-bottom: 0;
 }
 
 .list__item {
@@ -189,12 +191,15 @@ body {
   background-color: var(--color-tertiary-1);
 }
 
+.form__group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: center;
+}
+
 .heading--primary {
-  font-size: 4rem;
-  background-image: linear-gradient(to right, #1864ab, #c92a2a);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  font-size: 3rem;
 }
 
 .heading--secondary {
@@ -254,6 +259,9 @@ body {
 }
 
 .footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .mb-small {
@@ -266,4 +274,16 @@ body {
 
 .mb-large {
   margin-bottom: 8rem;
+}
+
+.mt-small {
+  margin-top: 2rem;
+}
+
+.mt-medium {
+  margin-top: 4rem;
+}
+
+.mt-large {
+  margin-top: 8rem;
 }

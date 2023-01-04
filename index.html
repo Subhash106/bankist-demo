@@ -17,13 +17,13 @@
   <body>
     <div class="container">
       <header class="header">
-        <h1 class="heading--primary">Bankist</h1>
+        <h1 class="heading--primary">Log in to get started</h1>
         <div class="logo__container">
           <img src="./img/logo.png" alt="Logo" class="logo" />
         </div>
         <form action="/home.html" class="form form--login">
-          <input type="text" class="input" />
-          <input type="text" class="input" />
+          <input type="text" class="input" placeholder="Username" />
+          <input type="text" class="input" placeholder="Pin" />
           <button class="btn">&rarr;</button>
         </form>
       </header>
@@ -36,82 +36,74 @@
             <div class="balance__text--date">As of 04/01/2023 01:29 PM</div>
           </div>
           <div class="balance__number">
-            <h2 class="heading--secondary">INR 1212122</h2>
+            <h2 class="heading--secondary" id="closingBalance">INR 1212122</h2>
           </div>
         </section>
         <section class="main__content">
-          <div class="transactions">
-            <ul class="card list">
-              <li class="list__item">
-                <div class="badge badge--red transaction__type">Deposite</div>
-                <div class="transaction__date">Today</div>
-                <div class="transaction__amount">5000</div>
-              </li>
-              <li class="list__item">
-                <div class="badge badge--red transaction__type">Deposite</div>
-                <div class="transaction__date">Today</div>
-                <div class="transaction__amount">5000</div>
-              </li>
-              <li class="list__item">
-                <div class="badge badge--red transaction__type">Deposite</div>
-                <div class="transaction__date">Today</div>
-                <div class="transaction__amount">5000</div>
-              </li>
-              <li class="list__item">
-                <div class="badge badge--green transaction__type">Deposite</div>
-                <div class="transaction__date">Today</div>
-                <div class="transaction__amount">5000</div>
-              </li>
-              <li class="list__item">
-                <div class="badge badge--red transaction__type">Deposite</div>
-                <div class="transaction__date">Today</div>
-                <div class="transaction__amount">5000</div>
-              </li>
-              <li class="list__item">
-                <div class="badge badge--green transaction__type">Deposite</div>
-                <div class="transaction__date">Today</div>
-                <div class="transaction__amount">5000</div>
-              </li>
-              <li class="list__item">
-                <div class="badge badge--red transaction__type">Deposite</div>
-                <div class="transaction__date">Today</div>
-                <div class="transaction__amount">5000</div>
-              </li>
-              <li class="list__item">
-                <div class="badge badge--green transaction__type">Deposite</div>
-                <div class="transaction__date">Today</div>
-                <div class="transaction__amount">5000</div>
-              </li>
-            </ul>
-          </div>
+          <div class="transactions"></div>
           <div class="activities">
-            <div class="card card--primary">
+            <div class="card card--tertiary">
               <h4 class="heading--4 mb-small">Transfer Money</h4>
+              <form action="/home.html" class="form form--tertiary">
+                <div class="form__group">
+                  <input type="text" class="input" id="transferTo" />
+                  <label for="transferTo">Transfer to</label>
+                </div>
+                <div class="form__group">
+                  <input
+                    type="number"
+                    min="0"
+                    step=".1"
+                    class="input"
+                    id="amount"
+                  />
+                  <label for="amount">Amount</label>
+                </div>
+                <div class="form__group">
+                  <button class="btn">&rarr;</button>
+                  <div>&nbsp;</div>
+                </div>
+              </form>
+            </div>
+            <div class="card card--primary">
+              <h4 class="heading--4 mb-small">Request Loan</h4>
               <form action="/home.html" class="form form--primary">
-                <input type="text" class="input" />
-                <input type="text" class="input" />
-                <button class="btn">&rarr;</button>
+                <div class="form__group">
+                  <input
+                    type="number"
+                    min="0"
+                    step=".1"
+                    class="input"
+                    id="loanAmount"
+                  />
+                  <label for="loanAmount">Amount</label>
+                </div>
+                <div class="form__group">
+                  <button class="btn">&rarr;</button>
+                  <div>&nbsp;</div>
+                </div>
               </form>
             </div>
             <div class="card card--secondary">
-              <h4 class="heading--4 mb-small">Request Loan</h4>
-              <form action="/home.html" class="form form--secondary">
-                <input type="text" class="input" />
-                <input type="text" class="input" />
-                <button class="btn">&rarr;</button>
-              </form>
-            </div>
-            <div class="card card--tertiary">
               <h4 class="heading--4 mb-small">Close Account</h4>
-              <form action="/home.html" class="form form--tertiary">
-                <input type="text" class="input" />
-                <input type="text" class="input" />
-                <button class="btn">&rarr;</button>
+              <form action="/home.html" class="form form--secondary">
+                <div class="form__group">
+                  <input type="text" class="input" id="userName" />
+                  <label for="userName">Username</label>
+                </div>
+                <div class="form__group">
+                  <input type="text" class="input" id="pin" />
+                  <label for="pin">Pin</label>
+                </div>
+                <div class="form__group">
+                  <button class="btn">&rarr;</button>
+                  <div>&nbsp;</div>
+                </div>
               </form>
             </div>
           </div>
         </section>
-        <footer class="footer mb-medium">
+        <footer class="footer mt-medium">
           <div class="analytics">Analytics</div>
           <div class="logout">
             You will be logged out in <strong>11:20</strong>
