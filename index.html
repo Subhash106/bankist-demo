@@ -16,21 +16,108 @@
   </head>
   <body>
     <div class="container">
-      <h1 class="heading-primary">JavaScript Fundamentales - Part 1</h1>
-      <a class="btn" href="#modal">Click here to open popup</a>
-    </div>
-    <div id="modal" class="modal">
-      <div class="modal-header">
-        <h1 class="heading-primary">This is modal header</h1>
-      </div>
-      <div class="modal-body">
-        <p>
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Pariatur
-          omnis natus, numquam iure vitae veniam ut unde eligendi iusto optio,
-          alias dolorum nesciunt dolorem eius delectus repellat ullam.
-          Perspiciatis, nihil!
-        </p>
-      </div>
+      <header class="header">
+        <h1 class="heading--primary">Bankist</h1>
+        <div class="logo__container">
+          <img src="./img/logo.png" alt="Logo" class="logo" />
+        </div>
+        <form action="/home.html" class="form form--login">
+          <input type="text" class="input" />
+          <input type="text" class="input" />
+          <button class="btn">&rarr;</button>
+        </form>
+      </header>
+      <main class="main">
+        <section class="header mb-medium">
+          <div class="balance__text">
+            <div class="balance__text--title">
+              <h3 class="heading--tertiary">Current Balance</h3>
+            </div>
+            <div class="balance__text--date">As of 04/01/2023 01:29 PM</div>
+          </div>
+          <div class="balance__number">
+            <h2 class="heading--secondary">INR 1212122</h2>
+          </div>
+        </section>
+        <section class="main__content">
+          <div class="transactions">
+            <ul class="card list">
+              <li class="list__item">
+                <div class="badge badge--red transaction__type">Deposite</div>
+                <div class="transaction__date">Today</div>
+                <div class="transaction__amount">5000</div>
+              </li>
+              <li class="list__item">
+                <div class="badge badge--red transaction__type">Deposite</div>
+                <div class="transaction__date">Today</div>
+                <div class="transaction__amount">5000</div>
+              </li>
+              <li class="list__item">
+                <div class="badge badge--red transaction__type">Deposite</div>
+                <div class="transaction__date">Today</div>
+                <div class="transaction__amount">5000</div>
+              </li>
+              <li class="list__item">
+                <div class="badge badge--green transaction__type">Deposite</div>
+                <div class="transaction__date">Today</div>
+                <div class="transaction__amount">5000</div>
+              </li>
+              <li class="list__item">
+                <div class="badge badge--red transaction__type">Deposite</div>
+                <div class="transaction__date">Today</div>
+                <div class="transaction__amount">5000</div>
+              </li>
+              <li class="list__item">
+                <div class="badge badge--green transaction__type">Deposite</div>
+                <div class="transaction__date">Today</div>
+                <div class="transaction__amount">5000</div>
+              </li>
+              <li class="list__item">
+                <div class="badge badge--red transaction__type">Deposite</div>
+                <div class="transaction__date">Today</div>
+                <div class="transaction__amount">5000</div>
+              </li>
+              <li class="list__item">
+                <div class="badge badge--green transaction__type">Deposite</div>
+                <div class="transaction__date">Today</div>
+                <div class="transaction__amount">5000</div>
+              </li>
+            </ul>
+          </div>
+          <div class="activities">
+            <div class="card card--primary">
+              <h4 class="heading--4 mb-small">Transfer Money</h4>
+              <form action="/home.html" class="form form--primary">
+                <input type="text" class="input" />
+                <input type="text" class="input" />
+                <button class="btn">&rarr;</button>
+              </form>
+            </div>
+            <div class="card card--secondary">
+              <h4 class="heading--4 mb-small">Request Loan</h4>
+              <form action="/home.html" class="form form--secondary">
+                <input type="text" class="input" />
+                <input type="text" class="input" />
+                <button class="btn">&rarr;</button>
+              </form>
+            </div>
+            <div class="card card--tertiary">
+              <h4 class="heading--4 mb-small">Close Account</h4>
+              <form action="/home.html" class="form form--tertiary">
+                <input type="text" class="input" />
+                <input type="text" class="input" />
+                <button class="btn">&rarr;</button>
+              </form>
+            </div>
+          </div>
+        </section>
+        <footer class="footer mb-medium">
+          <div class="analytics">Analytics</div>
+          <div class="logout">
+            You will be logged out in <strong>11:20</strong>
+          </div>
+        </footer>
+      </main>
     </div>
   </body>
 </html>
