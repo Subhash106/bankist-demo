@@ -130,6 +130,31 @@ body {
   );
 }
 
+.analytics {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-basis: 60%;
+}
+
+.deposit__amount,
+.interest__amount {
+  font-size: 3.2rem;
+  color: var(--color-primary);
+}
+
+.withdrawal__amount {
+  font-size: 3.2rem;
+  color: var(--color-secondary-dark);
+}
+
+.sort__transactions {
+  color: var(--color-primary);
+  padding: 0 1rem;
+  font-size: 3.2rem;
+  cursor: pointer;
+}
+
 .list {
   list-style: none;
   max-height: 54rem;
@@ -211,11 +236,13 @@ body {
 }
 
 .heading--secondary {
+  font-weight: 500;
   font-size: 4.2rem;
 }
 
 .heading--tertiary {
   font-size: 3.2rem;
+  font-weight: 500;
 }
 
 .heading--4 {
