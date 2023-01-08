@@ -4,7 +4,16 @@ const account1 = {
   pin: 1111,
   fullName: "Subash Chandra",
   transactions: [
-    5000, -300, 60000, -1200, 900, -43434, 54323, 5678, 23232, -890
+    { amount: 5000, date: new Date() },
+    { amount: -300, date: new Date() },
+    { amount: 60000, date: new Date() },
+    { amount: -1200, date: new Date() },
+    { amount: 900, date: new Date() },
+    { amount: -43434, date: new Date() },
+    { amount: 54323, date: new Date() },
+    { amount: 5678, date: new Date() },
+    { amount: 23232, date: new Date() },
+    { amount: -890, date: new Date() }
   ],
   rate: 0.8
 };
@@ -12,7 +21,18 @@ const account1 = {
 const account2 = {
   pin: 2222,
   fullName: "Prem Chandra",
-  transactions: [5000, -300, 60000, -1200, 900, -12, 54323, 5678, 23232, -890],
+  transactions: [
+    { amount: 5000, date: new Date() },
+    { amount: -300, date: new Date() },
+    { amount: 60000, date: new Date() },
+    { amount: -1200, date: new Date() },
+    { amount: 900, date: new Date() },
+    { amount: -12, date: new Date() },
+    { amount: 54323, date: new Date() },
+    { amount: 5678, date: new Date() },
+    { amount: 23232, date: new Date() },
+    { amount: -890, date: new Date() }
+  ],
   rate: 0.8
 };
 
@@ -20,7 +40,16 @@ const account3 = {
   pin: 2222,
   fullName: "Subash Chandra Boss",
   transactions: [
-    5000, -300, 60000, -1200, 900, -543, 54323, 5678, 23232, -890, 300000
+    { amount: 5000, date: new Date() },
+    { amount: -300, date: new Date() },
+    { amount: 60000, date: new Date() },
+    { amount: -1200, date: new Date() },
+    { amount: 900, date: new Date() },
+    { amount: -12, date: new Date() },
+    { amount: 54323, date: new Date() },
+    { amount: 5678, date: new Date() },
+    { amount: 23232, date: new Date() },
+    { amount: -890, date: new Date() }
   ],
   rate: 0.8
 };
@@ -28,7 +57,18 @@ const account3 = {
 const account4 = {
   pin: 2222,
   fullName: "Vartika Nirmal",
-  transactions: [5000, -300, 60000, -1200, 900, -122, 54323, 5678, 23232, -890],
+  transactions: [
+    { amount: 5000, date: new Date() },
+    { amount: -300, date: new Date() },
+    { amount: 60000, date: new Date() },
+    { amount: -1200, date: new Date() },
+    { amount: 900, date: new Date() },
+    { amount: -12, date: new Date() },
+    { amount: 54323, date: new Date() },
+    { amount: 5678, date: new Date() },
+    { amount: 23232, date: new Date() },
+    { amount: -890, date: new Date() }
+  ],
   rate: 0.8
 };
 
@@ -43,11 +83,11 @@ const withdrawalContainer = document.querySelector(".withdrawal__amount");
 const header = document.querySelector(".heading--primary");
 let currentAccount;
 
-const displayTransactions = (transactions, sort) => {
-  let moves = transactions;
+const displayTransactions = (account, sort) => {
+  let moves = account.transactions;
 
   if (sort) {
-    moves = transactions.slice().sort((a, b) => a - b);
+    moves = account.transactions.slice().sort((a, b) => a.amount - b.amount);
   }
 
   let str = `<ul class="card list">`;
@@ -55,6 +95,10 @@ const displayTransactions = (transactions, sort) => {
   str += moves
     .reverse()
     .map((txn, i) => {
+      const now = new Date(txn.date);
+      const currentDate = `${`${now.getDate()}`.padStart(2, 0)}/${`${
+        now.getMonth() + 1
+      }`.padStart(2, 0)}/${now.getFullYear()}`;
       return `
         <li class="list__item">
             <div class="badge badge--${
@@ -63,8 +107,10 @@ const displayTransactions = (transactions, sort) => {
         txn > 0 ? `${i + 1} Deposit` : `${i + 1} Withdrawal`
       }
             </div>
-            <div class="transaction__date">Today</div>
-            <div class="transaction__amount">&#8377; ${Math.abs(txn)}</div>
+            <div class="transaction__date">${currentDate}</div>
+            <div class="transaction__amount">&#8377; ${Math.abs(
+              txn.amount
+            ).toFixed(2)}</div>
         </li>
         `;
     })
@@ -96,7 +142,7 @@ const calculateClosingBalance = transactions =>
   transactions.reduce((sum, next) => sum + next, 0);
 
 function updateUI(account) {
-  displayTransactions(account.transactions);
+  displayTransactions(account);
   displayCurrentBalance(account);
   displayAnalytics(account);
 }
@@ -122,9 +168,14 @@ const transferMoney = (amount, userTo) => {
 };
 
 function displayCurrentBalance(account) {
-  account.balance = calculateClosingBalance(account.transactions);
+  account.balance = calculateClosingBalance(
+    account.transactions.map(txn => txn.amount)
+  );
   closingBalance.innerHTML = "";
-  closingBalance.insertAdjacentHTML("afterbegin", "&#8377;" + account.balance);
+  closingBalance.insertAdjacentHTML(
+    "afterbegin",
+    "&#8377;" + account.balance.toFixed(2)
+  );
 }
 
 const deposit = function (transactions) {
@@ -147,22 +198,23 @@ const interest = function (transactions, rate) {
 };
 
 function displayAnalytics(account) {
+  const txns = account.transactions.map(txn => txn.amount);
   interestContainer.innerHTML = "";
   interestContainer.insertAdjacentHTML(
     "afterbegin",
-    "&#8377;" + interest(account.transactions, account.rate)
+    "&#8377;" + interest(txns, account.rate).toFixed(2)
   );
 
   withdrawalContainer.innerHTML = "";
   withdrawalContainer.insertAdjacentHTML(
     "afterbegin",
-    "&#8377;" + Math.abs(withdrawal(account.transactions))
+    "&#8377;" + Math.abs(withdrawal(txns)).toFixed(2)
   );
 
   depositContainer.innerHTML = "";
   depositContainer.insertAdjacentHTML(
     "afterbegin",
-    "&#8377;" + deposit(account.transactions)
+    "&#8377;" + deposit(txns).toFixed(2)
   );
 }
 
@@ -184,6 +236,16 @@ document.querySelector(".login").addEventListener("click", function (e) {
   userName.value = "";
   userPin.value = "";
   header.textContent = `Welcome back, ${account.fullName.split(" ")[0]}`;
+  const now = new Date();
+  const currentDate = `${`${now.getDate()}`.padStart(2, 0)}/${`${
+    now.getMonth() + 1
+  }`.padStart(
+    2,
+    0
+  )}/${now.getFullYear()} ${now.getHours()}:${now.getMinutes()}`;
+  const asOfNow = document.getElementById("as_of_now");
+  asOfNow.innerHTML = "";
+  asOfNow.insertAdjacentHTML("afterbegin", currentDate);
 
   updateUI(account);
 
@@ -280,5 +342,5 @@ document
 
     this.innerHTML = "";
     this.insertAdjacentHTML("afterbegin", arrow);
-    displayTransactions(currentAccount.transactions, sortDir);
+    displayTransactions(currentAccount, sortDir);
   });
