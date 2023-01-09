@@ -299,12 +299,6 @@ document.querySelector(".login").addEventListener("click", function (e) {
   const asOfNowDate = new Intl.DateTimeFormat(account.locale, options).format(
     now
   );
-  const currentDate = `${`${now.getDate()}`.padStart(2, 0)}/${`${
-    now.getMonth() + 1
-  }`.padStart(
-    2,
-    0
-  )}/${now.getFullYear()} ${now.getHours()}:${now.getMinutes()}`;
   const asOfNow = document.getElementById("as_of_now");
   asOfNow.innerHTML = "";
   asOfNow.insertAdjacentHTML("afterbegin", asOfNowDate);
@@ -314,13 +308,12 @@ document.querySelector(".login").addEventListener("click", function (e) {
   main.classList.add("app");
   let tenMinutesInSeconds = 10 * 60;
 
-  setTimeout(() => {
-    main.classList.remove("app");
-  }, 1000 * tenMinutesInSeconds);
-
   const intervalId = setInterval(() => {
     if (tenMinutesInSeconds <= 0) {
       clearInterval(intervalId);
+      header.textContent = `Log in to get started`;
+
+      main.classList.remove("app");
       return;
     }
 
@@ -328,7 +321,9 @@ document.querySelector(".login").addEventListener("click", function (e) {
     const remainingSeconds = tenMinutesInSeconds--;
     timer.insertAdjacentHTML(
       "afterbegin",
-      `${parseInt(remainingSeconds / 60)}:${remainingSeconds % 60}`
+      `${String(parseInt(remainingSeconds / 60)).padStart(2, 0)}:${String(
+        remainingSeconds % 60
+      ).padStart(2, 0)}`
     );
   }, 1000);
 });
