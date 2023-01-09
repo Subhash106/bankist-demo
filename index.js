@@ -15,7 +15,9 @@ const account1 = {
     { amount: 23232, date: new Date(2023, 0, 2) },
     { amount: -890, date: new Date(2023, 0, 1) }
   ],
-  rate: 0.8
+  rate: 0.8,
+  locale: "hi-IN",
+  currency: "INR"
 };
 
 const account2 = {
@@ -33,11 +35,13 @@ const account2 = {
     { amount: 23232, date: new Date(2023, 0, 9) },
     { amount: -890, date: new Date(2023, 0, 9) }
   ],
-  rate: 0.8
+  rate: 0.8,
+  locale: "en-US",
+  currency: "USD"
 };
 
 const account3 = {
-  pin: 2222,
+  pin: 3333,
   fullName: "Subash Chandra Boss",
   transactions: [
     { amount: 5000, date: new Date(2023, 0, 9) },
@@ -51,11 +55,13 @@ const account3 = {
     { amount: 23232, date: new Date(2023, 0, 9) },
     { amount: -890, date: new Date(2023, 0, 9) }
   ],
-  rate: 0.8
+  rate: 0.8,
+  locale: "en-GB",
+  currency: "EUR"
 };
 
 const account4 = {
-  pin: 2222,
+  pin: 4444,
   fullName: "Vartika Nirmal",
   transactions: [
     { amount: 5000, date: new Date(2023, 0, 9) },
@@ -69,7 +75,9 @@ const account4 = {
     { amount: 23232, date: new Date(2023, 0, 9) },
     { amount: -890, date: new Date(2023, 0, 9) }
   ],
-  rate: 0.8
+  rate: 0.8,
+  locale: "en-DE",
+  currency: "EUR"
 };
 
 const accounts = [account1, account2, account3, account4];
@@ -82,6 +90,13 @@ const depositContainer = document.querySelector(".deposit__amount");
 const withdrawalContainer = document.querySelector(".withdrawal__amount");
 const header = document.querySelector(".heading--primary");
 let currentAccount;
+
+function formatCurrency(amount, locale, currency) {
+  return new Intl.NumberFormat(locale, {
+    style: "currency",
+    currency: currency
+  }).format(amount);
+}
 
 const displayTransactions = (account, sort) => {
   let moves = account.transactions;
@@ -106,9 +121,11 @@ const displayTransactions = (account, sort) => {
       }
             </div>
             <div class="transaction__date">${currentDate}</div>
-            <div class="transaction__amount">&#8377; ${Math.abs(
-              txn.amount
-            ).toFixed(2)}</div>
+            <div class="transaction__amount">${formatCurrency(
+              txn.amount,
+              account.locale,
+              account.currency
+            )}</div>
         </li>
         `;
     })
@@ -172,7 +189,7 @@ function displayCurrentBalance(account) {
   closingBalance.innerHTML = "";
   closingBalance.insertAdjacentHTML(
     "afterbegin",
-    "&#8377;" + account.balance.toFixed(2)
+    formatCurrency(account.balance, account.locale, account.currency)
   );
 }
 
@@ -200,19 +217,23 @@ function displayAnalytics(account) {
   interestContainer.innerHTML = "";
   interestContainer.insertAdjacentHTML(
     "afterbegin",
-    "&#8377;" + interest(txns, account.rate).toFixed(2)
+    formatCurrency(
+      interest(txns, account.rate),
+      account.locale,
+      account.currency
+    )
   );
 
   withdrawalContainer.innerHTML = "";
   withdrawalContainer.insertAdjacentHTML(
     "afterbegin",
-    "&#8377;" + Math.abs(withdrawal(txns)).toFixed(2)
+    formatCurrency(Math.abs(withdrawal(txns)), account.locale, account.currency)
   );
 
   depositContainer.innerHTML = "";
   depositContainer.insertAdjacentHTML(
     "afterbegin",
-    "&#8377;" + deposit(txns).toFixed(2)
+    formatCurrency(deposit(txns), account.locale, account.currency)
   );
 }
 
@@ -265,6 +286,19 @@ document.querySelector(".login").addEventListener("click", function (e) {
   userPin.value = "";
   header.textContent = `Welcome back, ${account.fullName.split(" ")[0]}`;
   const now = new Date();
+  //Internationalization
+  const options = {
+    hour: "numeric",
+    minute: "numeric",
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+    weekday: "long"
+  };
+
+  const asOfNowDate = new Intl.DateTimeFormat(account.locale, options).format(
+    now
+  );
   const currentDate = `${`${now.getDate()}`.padStart(2, 0)}/${`${
     now.getMonth() + 1
   }`.padStart(
@@ -273,7 +307,7 @@ document.querySelector(".login").addEventListener("click", function (e) {
   )}/${now.getFullYear()} ${now.getHours()}:${now.getMinutes()}`;
   const asOfNow = document.getElementById("as_of_now");
   asOfNow.innerHTML = "";
-  asOfNow.insertAdjacentHTML("afterbegin", currentDate);
+  asOfNow.insertAdjacentHTML("afterbegin", asOfNowDate);
 
   updateUI(account);
 
