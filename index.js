@@ -5,15 +5,15 @@ const account1 = {
   fullName: "Subash Chandra",
   transactions: [
     { amount: 5000, date: new Date() },
-    { amount: -300, date: new Date() },
-    { amount: 60000, date: new Date() },
-    { amount: -1200, date: new Date() },
-    { amount: 900, date: new Date() },
-    { amount: -43434, date: new Date() },
-    { amount: 54323, date: new Date() },
-    { amount: 5678, date: new Date() },
-    { amount: 23232, date: new Date() },
-    { amount: -890, date: new Date() }
+    { amount: -300, date: new Date(2023, 0, 9) },
+    { amount: 60000, date: new Date(2023, 0, 8) },
+    { amount: -1200, date: new Date(2023, 0, 7) },
+    { amount: 900, date: new Date(2023, 0, 6) },
+    { amount: -43434, date: new Date(2023, 0, 5) },
+    { amount: 54323, date: new Date(2023, 0, 4) },
+    { amount: 5678, date: new Date(2023, 0, 3) },
+    { amount: 23232, date: new Date(2023, 0, 2) },
+    { amount: -890, date: new Date(2023, 0, 1) }
   ],
   rate: 0.8
 };
@@ -22,16 +22,16 @@ const account2 = {
   pin: 2222,
   fullName: "Prem Chandra",
   transactions: [
-    { amount: 5000, date: new Date() },
-    { amount: -300, date: new Date() },
-    { amount: 60000, date: new Date() },
-    { amount: -1200, date: new Date() },
-    { amount: 900, date: new Date() },
-    { amount: -12, date: new Date() },
-    { amount: 54323, date: new Date() },
-    { amount: 5678, date: new Date() },
-    { amount: 23232, date: new Date() },
-    { amount: -890, date: new Date() }
+    { amount: 5000, date: new Date(2023, 0, 9) },
+    { amount: -300, date: new Date(2023, 0, 9) },
+    { amount: 60000, date: new Date(2023, 0, 9) },
+    { amount: -1200, date: new Date(2023, 0, 9) },
+    { amount: 900, date: new Date(2023, 0, 9) },
+    { amount: -12, date: new Date(2023, 0, 9) },
+    { amount: 54323, date: new Date(2023, 0, 9) },
+    { amount: 5678, date: new Date(2023, 0, 9) },
+    { amount: 23232, date: new Date(2023, 0, 9) },
+    { amount: -890, date: new Date(2023, 0, 9) }
   ],
   rate: 0.8
 };
@@ -40,16 +40,16 @@ const account3 = {
   pin: 2222,
   fullName: "Subash Chandra Boss",
   transactions: [
-    { amount: 5000, date: new Date() },
-    { amount: -300, date: new Date() },
-    { amount: 60000, date: new Date() },
-    { amount: -1200, date: new Date() },
-    { amount: 900, date: new Date() },
-    { amount: -12, date: new Date() },
-    { amount: 54323, date: new Date() },
-    { amount: 5678, date: new Date() },
-    { amount: 23232, date: new Date() },
-    { amount: -890, date: new Date() }
+    { amount: 5000, date: new Date(2023, 0, 9) },
+    { amount: -300, date: new Date(2023, 0, 9) },
+    { amount: 60000, date: new Date(2023, 0, 9) },
+    { amount: -1200, date: new Date(2023, 0, 9) },
+    { amount: 900, date: new Date(2023, 0, 9) },
+    { amount: -12, date: new Date(2023, 0, 9) },
+    { amount: 54323, date: new Date(2023, 0, 9) },
+    { amount: 5678, date: new Date(2023, 0, 9) },
+    { amount: 23232, date: new Date(2023, 0, 9) },
+    { amount: -890, date: new Date(2023, 0, 9) }
   ],
   rate: 0.8
 };
@@ -58,16 +58,16 @@ const account4 = {
   pin: 2222,
   fullName: "Vartika Nirmal",
   transactions: [
-    { amount: 5000, date: new Date() },
-    { amount: -300, date: new Date() },
-    { amount: 60000, date: new Date() },
+    { amount: 5000, date: new Date(2023, 0, 9) },
+    { amount: -300, date: new Date(2023, 0, 9) },
+    { amount: 60000, date: new Date(2023, 0, 9) },
     { amount: -1200, date: new Date() },
-    { amount: 900, date: new Date() },
-    { amount: -12, date: new Date() },
-    { amount: 54323, date: new Date() },
-    { amount: 5678, date: new Date() },
-    { amount: 23232, date: new Date() },
-    { amount: -890, date: new Date() }
+    { amount: 900, date: new Date(2023, 0, 9) },
+    { amount: -12, date: new Date(2023, 0, 9) },
+    { amount: 54323, date: new Date(2023, 0, 9) },
+    { amount: 5678, date: new Date(2023, 0, 9) },
+    { amount: 23232, date: new Date(2023, 0, 9) },
+    { amount: -890, date: new Date(2023, 0, 9) }
   ],
   rate: 0.8
 };
@@ -96,15 +96,13 @@ const displayTransactions = (account, sort) => {
     .reverse()
     .map((txn, i) => {
       const now = new Date(txn.date);
-      const currentDate = `${`${now.getDate()}`.padStart(2, 0)}/${`${
-        now.getMonth() + 1
-      }`.padStart(2, 0)}/${now.getFullYear()}`;
+      const currentDate = formatDate(now);
       return `
         <li class="list__item">
             <div class="badge badge--${
-              txn > 0 ? "green" : "red"
+              txn.amount > 0 ? "green" : "red"
             } transaction__type">${
-        txn > 0 ? `${i + 1} Deposit` : `${i + 1} Withdrawal`
+        txn.amount > 0 ? `${i + 1} Deposit` : `${i + 1} Withdrawal`
       }
             </div>
             <div class="transaction__date">${currentDate}</div>
@@ -157,8 +155,8 @@ const transferMoney = (amount, userTo) => {
     currentAccount.balance >= amount &&
     currentAccount.userName !== toAccount.userName
   ) {
-    toAccount.transactions.push(amount);
-    currentAccount.transactions.push(-amount);
+    toAccount.transactions.push({ amount, date: new Date() });
+    currentAccount.transactions.push({ amount: -amount, date: new Date() });
 
     // update UI
     updateUI(currentAccount);
@@ -216,6 +214,36 @@ function displayAnalytics(account) {
     "afterbegin",
     "&#8377;" + deposit(txns).toFixed(2)
   );
+}
+
+function formatDate(date) {
+  let formatedDate = "";
+  const diffDays = Math.floor(
+    Math.abs(+new Date() - new Date(date)) / (1000 * 60 * 60 * 24)
+  );
+
+  switch (diffDays) {
+    case 0:
+      formatedDate = "Today";
+      break;
+    case 1:
+      formatedDate = "Yesterday";
+      break;
+    case 2:
+    case 3:
+    case 4:
+    case 5:
+    case 6:
+    case 7:
+      formatedDate = `${diffDays} days ago`;
+      break;
+    default:
+      formatedDate = `${`${date.getDate()}`.padStart(2, 0)}/${`${
+        date.getMonth() + 1
+      }`.padStart(2, 0)}/${date.getFullYear()}`;
+  }
+
+  return formatedDate;
 }
 
 document.querySelector(".login").addEventListener("click", function (e) {
@@ -316,10 +344,13 @@ document.querySelector(".request-loan").addEventListener("click", function (e) {
   const loanAmount = document.getElementById("loanAmount");
 
   // loan will be granted if there is atleast one deposit
-  const depositCheck = currentAccount.transactions.some(txn => txn > 0);
+  const depositCheck = currentAccount.transactions.some(txn => txn.amount > 0);
 
   if (depositCheck && loanAmount.value > 0) {
-    currentAccount.transactions.push(Number(loanAmount.value));
+    currentAccount.transactions.push({
+      amount: Number(loanAmount.value),
+      date: new Date()
+    });
 
     updateUI(currentAccount);
 
